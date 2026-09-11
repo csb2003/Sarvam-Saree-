@@ -1,0 +1,90 @@
+{%- doc -%}
+  Renders a divider line, used to visually separate content.
+
+  @param {string} id - A unique ID for the divider, linking it to a block or section.
+  @param {object} settings - An object containing style settings for the divider.
+
+  @param {string} [settings.alignment_horizontal] - The horizontal alignment of the divider ('left', 'center', or
+  'right'). Defaults to 'center'.
+  @param {number} [settings.thickness] - The thickness of the divider line in pixels.
+  @param {string} [settings.corner_radius] - The corner radius of the divider, e.g., 'rounded'.
+  @param {number} [settings.width_percent] - The width of the divider as a percentage of its container.
+  @param {string} [settings.divider_color] - The color of the divider line. Falls back to `--color-border` when blank.
+
+  @param {boolean} [full_width] - When `true`, the divider spans the full width of its container.
+  @param {boolean} [attributes] - When `true`, render block.shopify_attributes on the divider container.
+  @param {block} [block] - The block object, used for Shopify editor attributes when attributes are enabled.
+  @param {boolean} [show_center_icon] - When `true`, renders the bundled Sarvam lotus glyph centered between two line segments instead of one continuous line.
+{%- enddoc -%}
+
+<div
+  class="divider divider-{{ id }} spacing-style{% if show_center_icon %} divider--with-icon{% endif %}"
+  style="
+    --divider-justify-content: {{ settings.alignment_horizontal | default: 'center' }};
+    {% if settings.divider_color != blank %}--color-border: {{ settings.divider_color }};{% endif %}
+    {% if show_center_icon %}--divider-icon-assembly-width: {{ settings.width_percent | default: 100 }}%;{% endif %}
+    {% render 'spacing-style', settings: settings %}
+  "
+  {% if attributes %}
+    {{- block.shopify_attributes -}}
+  {% endif %}
+>
+  {% if show_center_icon %}
+    <span class="divider__line divider__line--flex" style="--divider-border-thickness: {{ settings.thickness }}px;"></span>
+    <img
+      src="{{ 'lotus-glyph.png' | asset_url }}"
+      alt=""
+      width="45"
+      height="35"
+      class="divider__icon"
+      loading="lazy"
+    >
+    <span class="divider__line divider__line--flex" style="--divider-border-thickness: {{ settings.thickness }}px;"></span>
+  {% else %}
+    <span
+      class="divider__line"
+      style="
+        --divider-border-thickness: {{ settings.thickness }}px;
+        {% unless full_width %}
+          --divider-border-rounded: {% if settings.corner_radius == 'rounded' %}1{% else %}0{% endif %};
+        {% endunless %}
+        --divider-flex-basis: {{ settings.width_percent }}%;
+      "
+    ></span>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .divider {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: var(--divider-justify-content);
+  }
+
+  .divider__line {
+    border-bottom: var(--divider-border-thickness) solid var(--color-border);
+    border-right: var(--divider-border-thickness) solid var(--color-border);
+    border-radius: calc(var(--style-border-radius-sm) * var(--divider-border-rounded));
+    flex-basis: var(--divider-flex-basis);
+    min-height: var(--divider-flex-basis);
+  }
+
+  .divider--with-icon {
+    width: var(--divider-icon-assembly-width, 100%);
+    gap: 8px;
+  }
+
+  .divider__line--flex {
+    border-bottom: var(--divider-border-thickness) solid var(--color-border);
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .divider__icon {
+    height: 14px;
+    width: auto;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+{% endstylesheet %}
