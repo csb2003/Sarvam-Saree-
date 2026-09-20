@@ -1,0 +1,166 @@
+{% doc %}
+  @prompt
+    In the Product Information section, add a new small star rating block that can be placed between the Price block and Quantity Selector. The block should display only star icons (no review comments or text). It must allow manual customization of the rating value from 1 to 5 stars, including half-star increments (e.g., 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5). The stars should render visually as filled, half-filled, or empty based on the selected rating. Keep the block compact/small in size. It should be a standalone static display block with no connection to any review app.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-star-rating-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-star-rating-{{ ai_gen_id }}__inner {
+    display: flex;
+    align-items: center;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    min-height: 20px;
+  }
+
+  .ai-star-rating-{{ ai_gen_id }}__stars {
+    display: inline-flex;
+    align-items: center;
+    gap: {{ block.settings.star_gap }}px;
+    line-height: 1;
+    color: {{ block.settings.empty_color }};
+  }
+
+  .ai-star-rating-{{ ai_gen_id }}__star {
+    position: relative;
+    display: inline-block;
+    width: {{ block.settings.star_size }}px;
+    height: {{ block.settings.star_size }}px;
+    font-size: {{ block.settings.star_size }}px;
+    line-height: {{ block.settings.star_size }}px;
+    font-family: Arial, sans-serif;
+    color: {{ block.settings.empty_color }};
+  }
+
+  .ai-star-rating-{{ ai_gen_id }}__star::before {
+    content: '★';
+    position: absolute;
+    inset: 0;
+  }
+
+  .ai-star-rating-{{ ai_gen_id }}__star--full::before {
+    color: {{ block.settings.filled_color }};
+  }
+
+  .ai-star-rating-{{ ai_gen_id }}__star--half::before {
+    background: linear-gradient(90deg, {{ block.settings.filled_color }} 50%, {{ block.settings.empty_color }} 50%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-star-rating-{{ ai_gen_id }}__inner {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-star-rating-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-star-rating-{{ ai_gen_id }}__inner">
+    <div
+      class="ai-star-rating-{{ ai_gen_id }}__stars"
+      role="img"
+      aria-label="{{ block.settings.rating }} out of 5 stars"
+    >
+      {% assign rating_number = block.settings.rating | plus: 0 %}
+      {% for i in (1..5) %}
+        {% assign star_before = i | minus: 1 %}
+        {% if rating_number >= i %}
+          <span class="ai-star-rating-{{ ai_gen_id }}__star ai-star-rating-{{ ai_gen_id }}__star--full" aria-hidden="true">★</span>
+        {% elsif rating_number > star_before %}
+          <span class="ai-star-rating-{{ ai_gen_id }}__star ai-star-rating-{{ ai_gen_id }}__star--half" aria-hidden="true">★</span>
+        {% else %}
+          <span class="ai-star-rating-{{ ai_gen_id }}__star" aria-hidden="true">★</span>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Star rating",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Rating"
+    },
+    {
+      "type": "select",
+      "id": "rating",
+      "label": "Rating",
+      "options": [
+        { "value": "1", "label": "1 star" },
+        { "value": "1.5", "label": "1.5 stars" },
+        { "value": "2", "label": "2 stars" },
+        { "value": "2.5", "label": "2.5 stars" },
+        { "value": "3", "label": "3 stars" },
+        { "value": "3.5", "label": "3.5 stars" },
+        { "value": "4", "label": "4 stars" },
+        { "value": "4.5", "label": "4.5 stars" },
+        { "value": "5", "label": "5 stars" }
+      ],
+      "default": "5"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "star_size",
+      "label": "Star size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "star_gap",
+      "label": "Star spacing",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "filled_color",
+      "label": "Filled",
+      "default": "#B8860B"
+    },
+    {
+      "type": "color",
+      "id": "empty_color",
+      "label": "Empty",
+      "default": "#D6D1C7"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Star rating"
+    }
+  ],
+  "tag": null,
+  "class": "star-rating-block"
+}
+{% endschema %}

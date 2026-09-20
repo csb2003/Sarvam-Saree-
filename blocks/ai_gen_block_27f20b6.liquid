@@ -1,0 +1,75 @@
+{% doc %}
+  @prompt
+    Add a sticky Add to Cart button for the product page. The button should stick to the bottom of the screen as the user scrolls, appearing only after the main Add to Cart button scrolls out of view. It should display the product title and price alongside the button. Style it to match the store's existing theme aesthetics — clean, minimal, and premium. The sticky bar should be full-width, with a smooth slide-up animation when it appears. Include support for sold-out state (disabled button when product is unavailable).
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% capture sticky_form_id %}ai-sticky-form-{{ ai_gen_id }}{% endcapture %}
+
+{% style %}
+  .ai-sticky-cart-{{ ai_gen_id }} { display: block; position: fixed; z-index: 30; left: 0; right: 0; bottom: 0; width: 100%; background: {{ block.settings.background_color }}; color: {{ block.settings.text_color }}; border-top: {{ block.settings.border_width }}px solid {{ block.settings.border_color }}; box-shadow: 0 -6px 24px rgba(18,18,18,.08); transform: translateY(100%); opacity: 0; visibility: hidden; pointer-events: none; transition: transform .35s ease, opacity .35s ease, visibility .35s ease; }
+  .ai-sticky-cart-{{ ai_gen_id }}.is-visible { transform: translateY(0); opacity: 1; visibility: visible; pointer-events: auto; }
+  .ai-sticky-cart__inner-{{ ai_gen_id }} { width: {{ block.settings.desktop_width_percent }}%; max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .ai-sticky-cart__details-{{ ai_gen_id }} { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .ai-sticky-cart__title-{{ ai_gen_id }} { margin: 0; color: {{ block.settings.text_color }}; font-size: 16px; line-height: 1.25; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ai-sticky-cart__price-{{ ai_gen_id }} { color: {{ block.settings.text_color }}; font-size: 14px; line-height: 1.25; }
+  .ai-sticky-cart__button-{{ ai_gen_id }} { flex: 0 0 auto; min-width: 170px; min-height: 46px; padding: 12px 24px; border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_color }}; border-radius: {{ block.settings.button_radius }}px; background: {{ block.settings.button_color }}; color: {{ block.settings.button_text_color }}; font: inherit; font-size: 14px; cursor: pointer; transition: opacity .2s ease; }
+  .ai-sticky-cart__button-{{ ai_gen_id }}:hover:not(:disabled) { opacity: .82; }
+  .ai-sticky-cart__button-{{ ai_gen_id }}:focus-visible { outline: 2px solid {{ block.settings.text_color }}; outline-offset: 3px; }
+  .ai-sticky-cart__button-{{ ai_gen_id }}:disabled { cursor: not-allowed; opacity: .55; }
+  @media screen and (max-width: 749px) { .ai-sticky-cart__inner-{{ ai_gen_id }} { width: 100%; padding: 12px 16px; gap: 12px; } .ai-sticky-cart__title-{{ ai_gen_id }} { font-size: 14px; } .ai-sticky-cart__price-{{ ai_gen_id }} { font-size: 13px; } .ai-sticky-cart__button-{{ ai_gen_id }} { min-width: 132px; min-height: 44px; padding: 11px 14px; font-size: 13px; } }
+{% endstyle %}
+
+<sticky-add-to-cart-{{ ai_gen_id }} class="ai-sticky-cart-{{ ai_gen_id }}" data-product-form-selector="{{ block.settings.form_selector | escape }}" {{ block.shopify_attributes }}>
+  <div class="ai-sticky-cart__inner-{{ ai_gen_id }}">
+    <div class="ai-sticky-cart__details-{{ ai_gen_id }}">
+      <p class="ai-sticky-cart__title-{{ ai_gen_id }}">{{ product.title | escape }}</p>
+      <span class="ai-sticky-cart__price-{{ ai_gen_id }}">{{ product.selected_or_first_available_variant.price | money }}</span>
+    </div>
+    {% assign sticky_variant = product.selected_or_first_available_variant %}
+    {% form 'product', product, id: sticky_form_id %}
+      <input type="hidden" name="id" value="{{ sticky_variant.id }}">
+      <button type="submit" class="ai-sticky-cart__button-{{ ai_gen_id }}" {% unless sticky_variant.available %}disabled{% endunless %}>{% if sticky_variant.available %}{{ block.settings.button_label }}{% else %}{{ block.settings.sold_out_label }}{% endif %}</button>
+    {% endform %}
+  </div>
+</sticky-add-to-cart-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class StickyAddToCart{{ ai_gen_id }} extends HTMLElement {
+      connectedCallback() {
+        this.form = this.querySelector('form');
+        this.mainForm = document.querySelector(this.dataset.productFormSelector) || document.querySelector('form[action*="/cart/add"]');
+        this.mainButton = this.mainForm ? this.mainForm.querySelector('[type="submit"]') : null;
+        if (!this.mainButton) return;
+        this.observer = new IntersectionObserver((entries) => { this.classList.toggle('is-visible', !entries[0].isIntersecting); }, { threshold: 0 });
+        this.observer.observe(this.mainButton);
+        this.form.addEventListener('submit', (event) => { event.preventDefault(); if (!this.mainButton.disabled) this.mainButton.click(); });
+      }
+    }
+    customElements.define('sticky-add-to-cart-{{ ai_gen_id }}', StickyAddToCart{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Sticky add to cart",
+  "tag": null,
+  "class": "sticky-add-to-cart-block",
+  "settings": [
+    { "type": "text", "id": "form_selector", "label": "Main form selector", "default": "form[action*='/cart/add']" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Add to cart" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold-out label", "default": "Sold out" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "Bar style" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#f8f5ee" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#121212" },
+    { "type": "color", "id": "border_color", "label": "Border", "default": "#d8d2c7" },
+    { "type": "range", "id": "border_width", "label": "Border width", "min": 0, "max": 4, "step": 1, "unit": "px", "default": 1 },
+    { "type": "color", "id": "button_color", "label": "Button", "default": "#121212" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#ffffff" },
+    { "type": "range", "id": "button_border_width", "label": "Button border", "min": 0, "max": 4, "step": 1, "unit": "px", "default": 1 },
+    { "type": "range", "id": "button_radius", "label": "Button radius", "min": 0, "max": 20, "step": 2, "unit": "px", "default": 0 }
+  ],
+  "presets": [{ "name": "Sticky add to cart" }]
+}
+{% endschema %}

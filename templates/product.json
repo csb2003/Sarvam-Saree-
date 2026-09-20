@@ -6,469 +6,273 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "main": {
-      "type": "product-information",
+      "type": "main-product",
       "blocks": {
-        "disclosures_g9mWze": {
-          "type": "disclosures",
-          "name": "t:names.disclosures",
+        "text_LHqBM8": {
+          "type": "text",
           "settings": {
-            "heading": "Disclosures",
-            "heading_preset": "h5",
-            "open_by_default": false,
-            "icon": "caret",
-            "disclosure_heading_preset": "h6",
-            "text_color": "",
-            "dividers": true,
-            "divider_color": "{{ settings.color_palette.color2 }}",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "text": "Bengal",
+            "text_style": "uppercase"
+          }
         },
-        "media-gallery": {
-          "type": "_product-media-gallery",
-          "static": true,
+        "vendor": {
+          "type": "text",
+          "disabled": true,
           "settings": {
-            "media_presentation": "grid",
-            "media_columns": "two",
-            "image_gap": 4,
-            "large_first_image": false,
-            "slideshow_controls_style": "counter",
-            "slideshow_mobile_controls_style": "dots",
-            "thumbnail_position": "right",
-            "thumbnail_width": 44,
-            "thumbnail_radius": 0,
-            "aspect_ratio": "adapt",
-            "constrain_to_viewport": true,
-            "media_fit": "contain",
-            "media_radius": 0,
-            "extend_media": false,
-            "zoom": true,
-            "video_loop": false,
-            "hide_variants": true,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
         },
-        "product-details": {
-          "type": "_product-details",
-          "static": true,
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "judge_me_reviews_preview_badge_8aixd4": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "inventory_EiX6YG": {
+          "type": "inventory",
           "settings": {
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "details_position": "flex-start",
-            "gap": 28,
-            "sticky_details_desktop": true,
-            "background_media": "none",
-            "background_color": "",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 24,
-            "padding-block-end": 24,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "group_icgrde": {
-              "type": "group",
-              "name": "t:names.header",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "background_color": "",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0,
-                "open_in_new_tab": false,
-                "placeholder": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "text_xrnftG": {
-                  "type": "text",
-                  "name": "t:names.product_title",
-                  "settings": {
-                    "text": "<h1>{{ closest.product.title }}</h1>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h3",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "price_tVjtKg": {
-                  "type": "price",
-                  "settings": {
-                    "show_sale_price_first": true,
-                    "show_installments": false,
-                    "show_tax_info": false,
-                    "type_preset": "paragraph",
-                    "width": "100%",
-                    "alignment": "left",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "text_color": "",
-                    "padding-block-start": 4,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_xrnftG",
-                "price_tVjtKg"
-              ]
-            },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
-              "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "divider_color": "{{ settings.color_palette.color2 }}",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
-            },
-            "variant_picker_R3rGDr": {
-              "type": "variant-picker",
-              "settings": {
-                "variant_style": "buttons",
-                "show_swatches": false,
-                "option_label_text_color": "",
-                "variant_style_class": "default",
-                "custom_variant_background": "{{ settings.color_palette.background }}",
-                "custom_variant_text": "{{ settings.color_palette.foreground }}",
-                "custom_variant_border": "{{ settings.color_palette.foreground }}",
-                "selected_variant_style_class": "default",
-                "custom_selected_variant_background": "{{ settings.color_palette.foreground }}",
-                "custom_selected_variant_text": "{{ settings.color_palette.background }}",
-                "custom_selected_variant_border": "{{ settings.color_palette.foreground }}",
-                "alignment": "left",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "buy_buttons_eYQEYi": {
-              "type": "buy-buttons",
-              "settings": {
-                "stacking": true,
-                "text_color": "",
-                "show_pickup_availability": false,
-                "gift_card_form": true,
-                "recipient_button_style": "default",
-                "recipient_button_background": "{{ settings.color_palette.background }}",
-                "recipient_button_text": "{{ settings.color_palette.foreground }}",
-                "recipient_button_border": "{{ settings.color_palette.foreground }}",
-                "selected_recipient_button_style": "default",
-                "selected_recipient_button_background": "{{ settings.color_palette.foreground }}",
-                "selected_recipient_button_text": "{{ settings.color_palette.background }}",
-                "selected_recipient_button_border": "{{ settings.color_palette.foreground }}",
-                "input_style": "default",
-                "input_background_color": "{{ settings.color_palette.background }}",
-                "input_text_color": "{{ settings.color_palette.foreground }}",
-                "input_border_color": "{{ settings.color_palette.foreground }}",
-                "border_width": 1,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "quantity": {
-                  "type": "quantity",
-                  "static": true,
-                  "settings": {
-                    "input_style": "default",
-                    "input_background_color": "{{ settings.color_palette.background }}",
-                    "input_text_color": "{{ settings.color_palette.foreground }}",
-                    "input_border_color": "{{ settings.color_palette.foreground }}",
-                    "border_width": 1,
-                    "border_radius": 0
-                  },
-                  "blocks": {}
-                },
-                "add-to-cart": {
-                  "type": "add-to-cart",
-                  "static": true,
-                  "settings": {
-                    "style_class": "button",
-                    "custom_button_background": "{{ settings.color_palette.foreground }}",
-                    "custom_button_text": "{{ settings.color_palette.background }}",
-                    "custom_button_border": "{{ settings.color_palette.background }}"
-                  },
-                  "blocks": {}
-                },
-                "accelerated-checkout": {
-                  "type": "accelerated-checkout",
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                }
-              },
-              "block_order": []
-            },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "t:names.product_description",
-              "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "group_icgrde",
-            "divider_VJhene",
-            "variant_picker_R3rGDr",
-            "buy_buttons_eYQEYi",
-            "text_aEtTtq"
-          ]
+            "text_style": "body",
+            "inventory_threshold": 10,
+            "show_inventory_quantity": true
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "custom_liquid_qF6DnE": {
+          "type": "custom_liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "{% assign my_rating = 4.8 %}\n{% assign my_reviews = \"(120 reviews)\" %}\n\n{% assign full_stars = my_rating | floor %}\n{% assign remainder = my_rating | minus: full_stars %}\n{% assign next_star = full_stars | plus: 1 %}\n\n<div class=\"sarvam-rating-box\">\n  <div class=\"sarvam-stars\">\n    {% for i in (1..5) %}\n      {% if i <= full_stars %}\n        <span class=\"star full\">★</span>\n      {% elsif remainder >= 0.3 and i == next_star %}\n        <span class=\"star half\">★</span>\n      {% else %}\n        <span class=\"star empty\">★</span>\n      {% endif %}\n    {% endfor %}\n  </div>\n  <span class=\"score\">{{ my_rating }}</span>\n  <span class=\"count\">{{ my_reviews }}</span>\n</div>\n\n<style>\n  .sarvam-rating-box {\n    display: inline-flex;\n    align-items: center;\n    gap: 7px;\n    margin: 6px 0 12px 0;\n    line-height: 1;\n    font-family: inherit;\n  }\n  .sarvam-stars {\n    display: inline-flex;\n    gap: 2px;\n  }\n  .sarvam-stars .star {\n    font-size: 16px;\n    line-height: 1;\n  }\n  .sarvam-stars .star.full {\n    color: #B28247;\n  }\n  .sarvam-stars .star.half {\n    background: linear-gradient(90deg, #B28247 50%, #D8D2C7 50%);\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n  }\n  .sarvam-stars .star.empty {\n    color: #D8D2C7;\n  }\n  .sarvam-rating-box .score {\n    font-size: 14px;\n    font-weight: 600;\n    color: #1C1410;\n  }\n  .sarvam-rating-box .count {\n    font-size: 13px;\n    color: #6E6862;\n  }\n</style>"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "disabled": true,
+          "settings": {}
+        },
+        "custom_liquid_CncEAt": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"sarvam-features-container\">\n  <!-- 1. Pure Handloom -->\n  <div class=\"sarvam-feature-col\">\n    <div class=\"sarvam-feature-icon\">\n      <svg viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n        <circle cx=\"32\" cy=\"32\" r=\"28\" fill=\"#EFECE4\"/>\n        <!-- Stem & Main Spine -->\n        <path d=\"M22 43 C24 39 30 33 41.5 22.5\" stroke=\"#1C1410\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>\n        <!-- Leaf Blade -->\n        <path d=\"M24 41 C21.5 35 23 27 29.5 23 C36 19 41.5 22.5 41.5 22.5 C41.5 22.5 42.5 29 38 35.5 C33.5 42 26 42.5 24 41 Z\" \n              stroke=\"#1C1410\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n        <!-- Inner Leaf Veins -->\n        <line x1=\"28.5\" y1=\"36\" x2=\"33\" y2=\"38.5\" stroke=\"#1C1410\" stroke-width=\"1.6\" stroke-linecap=\"round\"/>\n        <line x1=\"31\" y1=\"32.5\" x2=\"26.5\" y2=\"30.5\" stroke=\"#1C1410\" stroke-width=\"1.6\" stroke-linecap=\"round\"/>\n        <line x1=\"35\" y1=\"28\" x2=\"39\" y2=\"30.5\" stroke=\"#1C1410\" stroke-width=\"1.6\" stroke-linecap=\"round\"/>\n        <line x1=\"37\" y1=\"25\" x2=\"33.5\" y2=\"23.5\" stroke=\"#1C1410\" stroke-width=\"1.6\" stroke-linecap=\"round\"/>\n      </svg>\n    </div>\n    <span class=\"sarvam-feature-title\">Pure<br>Handloom</span>\n  </div>\n\n  <!-- 2. Premium Quality -->\n  <div class=\"sarvam-feature-col\">\n    <div class=\"sarvam-feature-icon\">\n      <svg viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n        <circle cx=\"32\" cy=\"32\" r=\"28\" fill=\"#EFECE4\"/>\n        <!-- Interlocking Craft Diamond Weave / Cross Motif -->\n        <!-- Center Primary Cross -->\n        <line x1=\"23\" y1=\"23\" x2=\"41\" y2=\"41\" stroke=\"#1C1410\" stroke-width=\"2.2\" stroke-linecap=\"round\"/>\n        <line x1=\"41\" y1=\"23\" x2=\"23\" y2=\"41\" stroke=\"#1C1410\" stroke-width=\"2.2\" stroke-linecap=\"round\"/>\n        <!-- Cross Bars / Warp & Weft Terminals -->\n        <line x1=\"20.5\" y1=\"25.5\" x2=\"25.5\" y2=\"20.5\" stroke=\"#1C1410\" stroke-width=\"2.2\" stroke-linecap=\"round\"/>\n        <line x1=\"38.5\" y1=\"43.5\" x2=\"43.5\" y2=\"38.5\" stroke=\"#1C1410\" stroke-width=\"2.2\" stroke-linecap=\"round\"/>\n        <line x1=\"38.5\" y1=\"20.5\" x2=\"43.5\" y2=\"25.5\" stroke=\"#1C1410\" stroke-width=\"2.2\" stroke-linecap=\"round\"/>\n        <line x1=\"20.5\" y1=\"38.5\" x2=\"25.5\" y2=\"43.5\" stroke=\"#1C1410\" stroke-width=\"2.2\" stroke-linecap=\"round\"/>\n        <!-- Diamond Dot Accents -->\n        <circle cx=\"32\" cy=\"23.5\" r=\"1.5\" fill=\"#1C1410\"/>\n        <circle cx=\"32\" cy=\"40.5\" r=\"1.5\" fill=\"#1C1410\"/>\n        <circle cx=\"23.5\" cy=\"32\" r=\"1.5\" fill=\"#1C1410\"/>\n        <circle cx=\"40.5\" cy=\"32\" r=\"1.5\" fill=\"#1C1410\"/>\n        <circle cx=\"32\" cy=\"32\" r=\"1.8\" fill=\"#1C1410\"/>\n      </svg>\n    </div>\n    <span class=\"sarvam-feature-title\">Premium<br>Quality</span>\n  </div>\n\n  <!-- 3. Supports Artisans -->\n  <div class=\"sarvam-feature-col\">\n    <div class=\"sarvam-feature-icon\">\n      <svg viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n        <circle cx=\"32\" cy=\"32\" r=\"28\" fill=\"#EFECE4\"/>\n        <!-- Filled Heart Above -->\n        <path d=\"M32 28 C32 28 27.5 22.5 24 22.5 C21.2 22.5 19.5 24.5 19.5 27 C19.5 30.5 24 33.5 32 37.5 C40 33.5 44.5 30.5 44.5 27 C44.5 24.5 42.8 22.5 40 22.5 C36.5 22.5 32 28 32 28 Z\" fill=\"#1C1410\"/>\n        <!-- Open Cupping Hand Silhouette Supporting the Heart -->\n        <path d=\"M21 38 C23.5 36.8 26.5 37 29.5 38.5 L36.5 36.2 C38 35.8 40.5 36.5 41 37.8 C41.5 39 40 40.2 38.5 40.8 L33.5 43 C30.5 44.5 26.5 44 23.5 42 L20.5 39.5\" \n              stroke=\"#1C1410\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n        <path d=\"M27.5 40 C30 40 33 41.5 35 41\" stroke=\"#1C1410\" stroke-width=\"1.6\" stroke-linecap=\"round\"/>\n      </svg>\n    </div>\n    <span class=\"sarvam-feature-title\">Supports<br>Artisans</span>\n  </div>\n\n  <!-- 4. 7 Day Easy Delivery / Returns -->\n  <div class=\"sarvam-feature-col\">\n    <div class=\"sarvam-feature-icon\">\n      <svg viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n        <circle cx=\"32\" cy=\"32\" r=\"28\" fill=\"#EFECE4\"/>\n        <!-- Outer Box Perimeter -->\n        <path d=\"M32 17.5 L43.5 23.5 V37 L32 43.5 L20.5 37 V23.5 Z\" \n              stroke=\"#1C1410\" stroke-width=\"1.8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>\n        <!-- Front Center Vertical Line -->\n        <line x1=\"32\" y1=\"30\" x2=\"32\" y2=\"43.5\" \n              stroke=\"#1C1410\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>\n        <!-- Top Flap Horizontal Divide -->\n        <line x1=\"20.5\" y1=\"23.5\" x2=\"43.5\" y2=\"23.5\" \n              stroke=\"#1C1410\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>\n        <!-- Top Center Seam -->\n        <line x1=\"32\" y1=\"17.5\" x2=\"32\" y2=\"30\" \n              stroke=\"#1C1410\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>\n      </svg>\n    </div>\n    <span class=\"sarvam-feature-title\">7 Day<br>Easy Delivery</span>\n  </div>\n</div>\n\n<style>\n  .sarvam-features-container {\n    display: flex;\n    align-items: flex-start;\n    justify-content: space-between;\n    width: 100%;\n    margin: 20px 0 24px 0;\n    gap: 10px;\n    box-sizing: border-box;\n    font-family: inherit;\n  }\n  .sarvam-feature-col {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    text-align: center;\n    flex: 1 1 0;\n    min-width: 0;\n  }\n  .sarvam-feature-icon {\n    width: 52px;\n    height: 52px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin-bottom: 7px;\n  }\n  .sarvam-feature-icon svg {\n    width: 100%;\n    height: 100%;\n    display: block;\n  }\n  .sarvam-feature-title {\n    font-size: 11px;\n    line-height: 1.28;\n    color: #242120;\n    font-weight: 500;\n    letter-spacing: 0.01em;\n    display: block;\n  }\n  @media screen and (max-width: 480px) {\n    .sarvam-features-container {\n      margin: 16px 0 20px 0;\n      gap: 6px;\n    }\n    .sarvam-feature-icon {\n      width: 46px;\n      height: 46px;\n      margin-bottom: 5px;\n    }\n    .sarvam-feature-title {\n      font-size: 10px;\n    }\n  }\n</style>"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "custom_liquid_NTnMcr": {
+          "type": "custom_liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": ""
+          }
+        },
+        "icon_with_text_LL8TfM": {
+          "type": "icon-with-text",
+          "disabled": true,
+          "settings": {
+            "layout": "horizontal",
+            "icon_1": "box",
+            "heading_1": "Free shipping across India",
+            "icon_2": "return",
+            "heading_2": "7-Day Easy Returns",
+            "icon_3": "price_tag",
+            "heading_3": "COD Available"
+          }
+        },
+        "custom_liquid_8XGjUc": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div style=\"margin: 28px 0 20px; border-top: 1px solid #D8D2C7; font-size: 15px; line-height: 1.6;\">\n  <div style=\"display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid #EBE5DB;\">\n    <span style=\"color: #666; font-size: 14px;\">Fabric</span>\n    <span style=\"font-weight: 500; color: #1C1410; font-size: 15px;\">{{ product.metafields.custom.fabric.value | default: 'Bengal Tant Cotton' }}</span>\n  </div>\n  <div style=\"display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid #EBE5DB;\">\n    <span style=\"color: #666; font-size: 14px;\">Weave / Craft</span>\n    <span style=\"font-weight: 500; color: #1C1410; font-size: 15px;\">{{ product.metafields.custom.weave.value | default: 'Handloom Tant' }}</span>\n  </div>\n  <div style=\"display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid #EBE5DB;\">\n    <span style=\"color: #666; font-size: 14px;\">Region</span>\n    <span style=\"font-weight: 500; color: #1C1410; font-size: 15px;\">{{ product.metafields.custom.region.value | default: 'West Bengal' }}</span>\n  </div>\n  <div style=\"display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid #EBE5DB;\">\n    <span style=\"color: #666; font-size: 14px;\">Design / Motif</span>\n    <span style=\"font-weight: 500; color: #1C1410; font-size: 15px;\">{{ product.metafields.custom.motif.value | default: 'Traditional border motifs' }}</span>\n  </div>\n  <div style=\"display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid #EBE5DB;\">\n    <span style=\"color: #666; font-size: 14px;\">Blouse Piece</span>\n    <span style=\"font-weight: 500; color: #1C1410; font-size: 15px;\">{{ product.metafields.custom.blouse_piece.value | default: 'Yes included' }}</span>\n  </div>\n</div>"
+          }
+        },
+        "collapsible_tab_ptbVYJ": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "CARE INSTRUCTIONS",
+            "icon": "shirt",
+            "content": "<p>{{ product.metafields.custom.care_instructions.value }}</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_zK4crr": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "SHIPPING & RETURNS",
+            "icon": "box",
+            "content": "<p>All handloom sarees are carefully inspected and packed. Orders are dispatched within 2–3 business days. We offer hassle-free 7-day returns/exchanges.</p>",
+            "page": ""
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
         }
       },
       "block_order": [
-        "disclosures_g9mWze"
+        "text_LHqBM8",
+        "vendor",
+        "title",
+        "judge_me_reviews_preview_badge_8aixd4",
+        "inventory_EiX6YG",
+        "price",
+        "custom_liquid_qF6DnE",
+        "variant_picker",
+        "quantity_selector",
+        "custom_liquid_CncEAt",
+        "buy_buttons",
+        "custom_liquid_NTnMcr",
+        "icon_with_text_LL8TfM",
+        "custom_liquid_8XGjUc",
+        "collapsible_tab_ptbVYJ",
+        "collapsible_tab_zK4crr",
+        "description",
+        "share"
       ],
       "settings": {
-        "content_width": "content-center-aligned",
-        "desktop_media_position": "left",
-        "equal_columns": false,
-        "limit_details_width": false,
-        "gap": 48,
-        "enable_sticky_add_to_cart": true,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": false,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "hover",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
       }
     },
-    "product_recommendations_qggXJq": {
-      "type": "product-recommendations",
+    "image_with_text_3QpTAN": {
+      "type": "image-with-text",
       "blocks": {
-        "text_cbcgyb": {
-          "type": "text",
-          "name": "t:names.header",
+        "heading_tPAkpY": {
+          "type": "heading",
           "settings": {
-            "text": "<h3>You may also like </h3>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h4",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "heading": "The Story Behind This Saree",
+            "heading_size": "h1"
+          }
         },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
+        "text_BzYdBi": {
+          "type": "text",
           "settings": {
-            "product_card_gap": 8,
-            "background_color": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 8,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_DNizbJ": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_M7MJkb": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_gLWgA6": {
-              "type": "price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "text_color": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_DNizbJ",
-            "product_title_M7MJkb",
-            "price_gLWgA6"
-          ]
+            "text": "<p><br/>Rooted in Bengal’s rich handloom tradition, this saree brings together a light ivory ground with carefully woven geometric detailing. The restrained palette allows the craftsmanship, texture and rhythm of the weave to speak for itself.<br/><br/></p>",
+            "text_style": "body"
+          }
+        },
+        "button_NykhwJ": {
+          "type": "button",
+          "settings": {
+            "button_label": "DISCOVER THE COLLECTIONS",
+            "button_link": "shopify://collections/all-product-collection",
+            "button_style_secondary": true
+          }
         }
       },
       "block_order": [
-        "text_cbcgyb"
+        "heading_tPAkpY",
+        "text_BzYdBi",
+        "button_NykhwJ"
       ],
-      "name": "t:names.product_recommendations",
+      "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "product": "{{ closest.product }}",
-        "recommendation_type": "related",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 4,
-        "columns": 4,
-        "mobile_columns": "2",
-        "columns_gap": 12,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "image": "shopify://shop_images/The_Story_Behind_This_Saree.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "disclosures": {
+      "type": "disclosures",
+      "settings": {
+        "heading": "Disclosures",
+        "heading_size": "h2",
+        "open_by_default": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You May Also Like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "178949937491d54076": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_8ckRVp": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1000,
+            "show_shop_reviews": false,
+            "empty_state": "other_products_reviews"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_8ckRVp"
+      ],
+      "settings": {
+        "include_margins": true
       }
     }
   },
   "order": [
     "main",
-    "product_recommendations_qggXJq"
+    "image_with_text_3QpTAN",
+    "disclosures",
+    "related-products",
+    "178949937491d54076"
   ]
 }

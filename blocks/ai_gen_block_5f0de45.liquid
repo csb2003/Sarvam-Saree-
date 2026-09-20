@@ -1,0 +1,192 @@
+{% doc %}
+  @prompt
+    Fix the mobile product grid and product card layout for SARVAM SARI Shopify store. Preserve all existing brand colours, typography, spacing and premium editorial aesthetic — do not redesign anything visual. Apply the following technical responsive fixes only: 1) Product grid: use CSS Grid with repeat(2, minmax(0, 1fr)) for 320–767px, 2–3 columns for 768–1023px, 3 columns for 1024–1439px, 4 columns for 1440px+. Never use fixed pixel widths for columns. 2) Product images: enforce a consistent 4:5 portrait aspect ratio using aspect-ratio: 4/5, use object-fit: cover so images scale proportionally without stretching or cropping the saree/model. Never use fixed pixel heights on image containers. 3) Product card content: every card must follow IMAGE > PRODUCT NAME > PRICE > CTA structure. Product name area must have a consistent min-height so neighbouring cards stay aligned even when titles are 2–3 lines. CTA buttons must be identical height and width inside their card. Prices must always be visible. No text overflow or overlap. No card should push or resize its neighbour. 4) Zero horizontal scrolling on product grid at 320px, 360px, 375px, 390px, 430px, 768px, 1024px, 1280px, 1440px, 1920px. Do not change product names, prices, images, logo, brand colours or typography.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-responsive-product-grid-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+    color: #121212;
+  }
+
+  .ai-responsive-product-grid-{{ ai_gen_id }}__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: {{ block.settings.grid_gap }}px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .ai-responsive-product-grid-{{ ai_gen_id }}__card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .ai-responsive-product-grid-{{ ai_gen_id }}__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    flex: 0 0 auto;
+  }
+
+  .ai-responsive-product-grid-{{ ai_gen_id }}__media img,
+  .ai-responsive-product-grid-{{ ai_gen_id }}__placeholder svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-responsive-product-grid-{{ ai_gen_id }}__placeholder {
+    width: 100%;
+    height: 100%;
+    background: #f3f3f3;
+  }
+
+  .ai-responsive-product-grid-{{ ai_gen_id }}__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 0;
+    padding-top: 12px;
+  }
+
+  .ai-responsive-product-grid-{{ ai_gen_id }}__title {
+    display: -webkit-box;
+    min-height: 3.2em;
+    margin: 0 0 6px;
+    overflow: hidden;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.6;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .ai-responsive-product-grid-{{ ai_gen_id }}__price {
+    display: block;
+    min-height: 1.6em;
+    margin: 0 0 12px;
+    color: inherit;
+    white-space: nowrap;
+  }
+
+  .ai-responsive-product-grid-{{ ai_gen_id }}__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    margin-top: auto;
+    padding: 10px 12px;
+    overflow: hidden;
+    border: 1px solid #121212;
+    background: #121212;
+    color: #ffffff;
+    font: inherit;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: 768px) {
+    .ai-responsive-product-grid-{{ ai_gen_id }}__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-responsive-product-grid-{{ ai_gen_id }}__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    .ai-responsive-product-grid-{{ ai_gen_id }}__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+{% endstyle %}
+
+<div class="ai-responsive-product-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-responsive-product-grid-{{ ai_gen_id }}__grid">
+    {% for product in block.settings.products %}
+      <article class="ai-responsive-product-grid-{{ ai_gen_id }}__card">
+        <a class="ai-responsive-product-grid-{{ ai_gen_id }}__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}">
+          {% else %}
+            <div class="ai-responsive-product-grid-{{ ai_gen_id }}__placeholder">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>
+          {% endif %}
+        </a>
+        <div class="ai-responsive-product-grid-{{ ai_gen_id }}__content">
+          <h3 class="ai-responsive-product-grid-{{ ai_gen_id }}__title">{{ product.title | escape }}</h3>
+          <div class="ai-responsive-product-grid-{{ ai_gen_id }}__price">{{ product.price | money }}</div>
+          <a class="ai-responsive-product-grid-{{ ai_gen_id }}__cta" href="{{ product.url }}">{{ block.settings.cta_label }}</a>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Responsive product grid",
+  "settings": [
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Products",
+      "limit": 50
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "View product"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 4,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Responsive product grid"
+    }
+  ],
+  "tag": null,
+  "class": "responsive-product-grid-block"
+}
+{% endschema %}

@@ -1,0 +1,267 @@
+{% doc %}
+  @prompt
+    Add a sticky Add to Cart button for the product page. The button should stick to the bottom of the screen as the user scrolls, appearing only after the main Add to Cart button scrolls out of view. It should display the product title and price alongside the button. Style it to match the store's existing theme aesthetics — clean, minimal, and premium. The sticky bar should be full-width, with a smooth slide-up animation when it appears. Include support for sold-out state (disabled button when product is unavailable). IMPORTANT: Do not use a Liquid product form tag. Instead, use a plain HTML form or a button that adds to cart via JavaScript (fetch API to /cart/add.js) using the current variant ID from the page. This avoids the "product form must be given a product" Liquid error when the block is rendered outside the main product section context.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign sticky_variant = product.selected_or_first_available_variant %}
+{% style %}
+  .ai-sticky-atc-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-sticky-atc-{{ ai_gen_id }}__bar {
+    position: fixed;
+    z-index: 20;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 24px;
+    color: {{ block.settings.text_color }};
+    background: {{ block.settings.background_color }};
+    border-top: 1px solid {{ block.settings.border_color }};
+    box-shadow: 0 -5px 20px rgba(18, 18, 18, 0.08);
+    transform: translateY(100%);
+    visibility: hidden;
+    opacity: 0;
+    transition: transform 0.28s ease, opacity 0.28s ease, visibility 0.28s ease;
+  }
+
+  .ai-sticky-atc-{{ ai_gen_id }}__bar.is-visible {
+    transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .ai-sticky-atc-{{ ai_gen_id }}__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 1200px;
+  }
+
+  .ai-sticky-atc-{{ ai_gen_id }}__details {
+    min-width: 0;
+  }
+
+  .ai-sticky-atc-{{ ai_gen_id }}__title {
+    margin: 0 0 3px;
+    overflow: hidden;
+    font-family: {{ settings.type_header_font.family }};
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ai-sticky-atc-{{ ai_gen_id }}__price {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .ai-sticky-atc-{{ ai_gen_id }}__button {
+    flex: 0 0 auto;
+    min-width: 170px;
+    padding: 13px 24px;
+    color: {{ block.settings.button_text_color }};
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: {{ block.settings.button_color }};
+    border: 1px solid {{ block.settings.button_color }};
+    border-radius: {{ settings.buttons_radius }}px;
+  }
+
+  .ai-sticky-atc-{{ ai_gen_id }}__button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .ai-sticky-atc-{{ ai_gen_id }}__button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-sticky-atc-{{ ai_gen_id }}__bar {
+      padding: 10px 16px;
+    }
+
+    .ai-sticky-atc-{{ ai_gen_id }}__inner {
+      gap: 12px;
+      width: 100%;
+    }
+
+    .ai-sticky-atc-{{ ai_gen_id }}__title {
+      font-size: 16px;
+    }
+
+    .ai-sticky-atc-{{ ai_gen_id }}__button {
+      min-width: 130px;
+      padding: 12px 14px;
+      font-size: 12px;
+    }
+  }
+{% endstyle %}
+
+<sticky-add-to-cart-{{ ai_gen_id }} class="ai-sticky-atc-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-sticky-atc-{{ ai_gen_id }}__bar" data-sticky-bar>
+    <div class="ai-sticky-atc-{{ ai_gen_id }}__inner">
+      <div class="ai-sticky-atc-{{ ai_gen_id }}__details">
+        <p class="ai-sticky-atc-{{ ai_gen_id }}__title">{{ product.title | escape }}</p>
+        <p class="ai-sticky-atc-{{ ai_gen_id }}__price" data-sticky-price>{{ sticky_variant.price | money }}</p>
+      </div>
+      <button
+        class="ai-sticky-atc-{{ ai_gen_id }}__button"
+        type="button"
+        data-sticky-submit
+        data-variant-id="{{ sticky_variant.id }}"
+        {% unless sticky_variant.available %}disabled{% endunless %}
+      >
+        {% if sticky_variant.available %}{{ block.settings.button_label }}{% else %}{{ block.settings.sold_out_label }}{% endif %}
+      </button>
+    </div>
+  </div>
+</sticky-add-to-cart-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class StickyAddToCart{{ ai_gen_id }} extends HTMLElement {
+      connectedCallback() {
+        this.bar = this.querySelector('[data-sticky-bar]');
+        this.button = this.querySelector('[data-sticky-submit]');
+        this.observeMainButton();
+        this.button.addEventListener('click', () => this.addToCart());
+      }
+
+      observeMainButton() {
+        const selectors = [
+          'form[action^="/cart/add"] [type="submit"]',
+          'product-form [type="submit"]',
+          '.product-form__submit',
+          'button[name="add"]'
+        ];
+        let mainButton;
+        for (const selector of selectors) {
+          const candidate = document.querySelector(selector);
+          if (candidate && !this.contains(candidate)) {
+            mainButton = candidate;
+            break;
+          }
+        }
+        if (!mainButton) {
+          this.bar.classList.add('is-visible');
+          return;
+        }
+        const observer = new IntersectionObserver((entries) => {
+          this.bar.classList.toggle('is-visible', !entries[0].isIntersecting);
+        }, { threshold: 0 });
+        observer.observe(mainButton);
+      }
+
+      async addToCart() {
+        if (this.button.disabled) return;
+        const originalLabel = this.button.textContent;
+        this.button.disabled = true;
+        this.button.textContent = '{{ block.settings.loading_label | escape }}';
+        try {
+          const response = await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ items: [{ id: Number(this.button.dataset.variantId), quantity: 1 }] })
+          });
+          if (!response.ok) throw new Error('Cart request failed');
+          window.location.href = '/cart';
+        } catch (error) {
+          this.button.disabled = false;
+          this.button.textContent = originalLabel;
+        }
+      }
+    }
+    customElements.define('sticky-add-to-cart-{{ ai_gen_id }}', StickyAddToCart{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Sticky add to cart",
+  "tag": null,
+  "class": "sticky-add-to-cart-block",
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Add to cart"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_label",
+      "label": "Sold-out label",
+      "default": "Sold out"
+    },
+    {
+      "type": "text",
+      "id": "loading_label",
+      "label": "Loading label",
+      "default": "Adding..."
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f8f5ee"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#d8d2c6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sticky add to cart"
+    }
+  ]
+}
+{% endschema %}
